@@ -41,7 +41,8 @@ var simpleCommonWallet = function(options) {
         destinationAddress: destinationAddress,
         amountForDestinationInBTC: value,
         network: options.network,
-        rawUnspentOutputs: unspentOutputs
+        rawUnspentOutputs: unspentOutputs,
+        propagateCallback: (opts.propagate) ? commonBlockchain.Transactions.Propagate : null
       }, function (err, transaction) {
           callback(err, transaction);
       });
