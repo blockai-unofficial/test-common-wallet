@@ -4,7 +4,7 @@
   "description": "A test Common Wallet object for testing software written to the commonWallet spec.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node ./test/index.js"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/andrewmalta13/test-common-wallet",
   "dependencies": {
+    "abstract-common-wallet": "^1.0.0",
     "bigi": "^1.4.0",
     "bitcoinjs-lib": "^1.5.7",
     "blockcypher-unofficial": "^1.4.1",
