@@ -19,5 +19,10 @@
   "bugs": {
     "url": "https://github.com/andrewmalta13/test-common-wallet/issues"
   },
-  "homepage": "https://github.com/andrewmalta13/test-common-wallet"
+  "homepage": "https://github.com/andrewmalta13/test-common-wallet",
+  "dependencies": {
+    "bigi": "^1.4.0",
+    "bitcoinjs-lib": "^1.5.7",
+    "blockcypher-unofficial": "^1.4.1"
+  }
 }
