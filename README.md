@@ -30,7 +30,7 @@ cw.signTransaction((some unsigned transaction hex to sign), callback);
 cw.createTransaction({
   valueInBTC: (the amount of btc to be transacted),
   destinationAddress: (the address your Common Wallet object will be sending btc to),
-  proagate: (true or false if you want to propagate the tx. Will default to false)
+  propagate: (true or false if you want to propagate the tx. Will default to false)
 }, callback);
 ```
 
