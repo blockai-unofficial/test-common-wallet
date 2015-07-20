@@ -1,0 +1,23 @@
+{
+  "name": "test-common-wallet",
+  "version": "1.0.0",
+  "description": "A test Common Wallet object for testing software written to the commonWallet spec.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andrewmalta13/test-common-wallet"
+  },
+  "keywords": [
+    "Common",
+    "Wallet"
+  ],
+  "author": "Andrew Malta <andrew.malta@yale.edu>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andrewmalta13/test-common-wallet/issues"
+  },
+  "homepage": "https://github.com/andrewmalta13/test-common-wallet"
+}
