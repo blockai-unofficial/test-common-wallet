@@ -8,14 +8,12 @@ var testCommonWallet= require('../');
 var commonWalletTests = require('abstract-common-wallet/tests');
 
 
-var randWIF = bitcoin.generateRandomWIF("testnet");
-var randAddress = bitcoin.getAddressFromWIF(randWIF);
+var randWIF = bitcoin.WIFKeyFromSeed("test" ,"testnet");
 
 
 var commonWallet = testCommonWallet({
   network: "testnet",
   commonBlockchain: commonBlockchain,
-  address: randAddress,
   wif: randWIF
 });
 

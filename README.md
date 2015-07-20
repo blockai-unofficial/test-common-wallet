@@ -11,7 +11,16 @@ A common wallet instance can be instantiated as follows:
 var cw = require('test-common-wallet')({
   network: (network you want to operate on. "testnet" or "mainnet"),
   wif: (your private key in wif format to sign messages and transactions),
-  address: (your wallet address),
+  commonBlockchain: (a Common Blockchain client. Read about this in the link above)
+});
+```
+
+or 
+
+```javascript
+var cw = require('test-common-wallet')({
+  network: (network you want to operate on. "testnet" or "mainnet"),
+  seed: (a seed to generate a wif ie: "this is a seed"),
   commonBlockchain: (a Common Blockchain client. Read about this in the link above)
 });
 ```

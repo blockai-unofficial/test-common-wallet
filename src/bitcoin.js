@@ -18,6 +18,15 @@ function generateRandomWIF(network) {
   return key.toWIF(network).toString();
 }
 
+function WIFKeyFromSeed(seed, network) {
+  network = networkCheck(network);
+  var hash = bitcoin.crypto.sha256(seed);
+  var d = bigi.fromBuffer(hash);
+  var key = new bitcoin.ECKey(d);
+  var wif = key.toWIF(network);
+  return wif;
+}
+
 function buildTransaction(options, callback) {
   var key = getAddressFromWIF(options.sourceWIF, options.network);  //public key to send the change to
   var unspentOutputs = options.rawUnspentOutputs;
@@ -81,5 +90,6 @@ function buildTransaction(options, callback) {
 module.exports = {
   buildTransaction: buildTransaction,
   getAddressFromWIF: getAddressFromWIF,
-  generateRandomWIF: generateRandomWIF
+  generateRandomWIF: generateRandomWIF,
+  WIFKeyFromSeed: WIFKeyFromSeed
 }

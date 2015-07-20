@@ -3,18 +3,20 @@ var bitcoin = require('./bitcoin');
 
 var simpleCommonWallet = function(options) {
   var commonBlockchain = options.commonBlockchain;
-  var address = options.address;
+  var network = options.network;
+  var wif = (options.wif) ? options.wif : bitcoin.WIFKeyFromSeed(options.seed, network);
+  var address = bitcoin.getAddressFromWIF(wif, network);
 
   var signMessage = function (message, cb) {
-    var key = bitcoinjs.ECKey.fromWIF(options.wif);
-    var network = (options.network === "testnet") ? bitcoinjs.networks.testnet : null;
+    var key = bitcoinjs.ECKey.fromWIF(wif);
+    var network = (network === "testnet") ? bitcoinjs.networks.testnet : null;
     cb(null, bitcoinjs.Message.sign(key, message, network).toString('base64'));
   };
   
   //callback (error, tx.to)
   var signRawTransaction = function(txHex, cb) {
     var tx = bitcoinjs.Transaction.fromHex(txHex);
-    var key = bitcoinjs.ECKey.fromWIF(options.wif);
+    var key = bitcoinjs.ECKey.fromWIF(wif);
     tx.sign(0, key);
     var txid = tx.getId();
     cb(false, tx.toHex(), txid);
@@ -37,10 +39,10 @@ var simpleCommonWallet = function(options) {
       var signedTxHex;
 
       bitcoin.buildTransaction({
-        sourceWIF: options.wif,
+        sourceWIF: wif,
         destinationAddress: destinationAddress,
         amountForDestinationInBTC: value,
-        network: options.network,
+        network: network,
         rawUnspentOutputs: unspentOutputs,
         propagateCallback: (opts.propagate) ? commonBlockchain.Transactions.Propagate : null
       }, function (err, transaction) {
@@ -50,7 +52,7 @@ var simpleCommonWallet = function(options) {
   };
 
   var commonWallet = {
-    network: options.network,
+    network: network,
     signRawTransaction: signRawTransaction,
     signMessage: signMessage,
     address: address,
