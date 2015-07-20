@@ -23,6 +23,7 @@
   "dependencies": {
     "bigi": "^1.4.0",
     "bitcoinjs-lib": "^1.5.7",
-    "blockcypher-unofficial": "^1.4.1"
+    "blockcypher-unofficial": "^1.4.1",
+    "tape": "^4.0.1"
   }
 }

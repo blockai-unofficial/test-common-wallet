@@ -12,6 +12,12 @@ function getAddressFromWIF(wif, network) {
   return address;
 }
 
+function generateRandomWIF(network) {
+  network = networkCheck(network);
+  var key = bitcoin.ECKey.makeRandom();
+  return key.toWIF(network).toString();
+}
+
 function buildTransaction(options, callback) {
   var key = getAddressFromWIF(options.sourceWIF, options.network);  //public key to send the change to
   var unspentOutputs = options.rawUnspentOutputs;
@@ -51,13 +57,20 @@ function buildTransaction(options, callback) {
     callback("not enough in wallet to complete transaction", null);
   }
   else {
-    //sign the transaction
     for (var i = 0; i < numInputs; i++) {
       tx.sign(i, bitcoin.ECKey.fromWIF(options.sourceWIF));
     }
     
     if(options.propagateCallback) {
-      options.propagateCallback(tx.build().toHex(), callback);
+      var signedHex = tx.build().toHex();
+      options.propagateCallback(signedHex, function (err, resp) {
+        if (err) {
+          console.log("error propagating tx: " + err);
+        }
+        else {
+          callback(false, signedHex);
+        }
+      });
     }
     else {
       callback(false, tx.build().toHex());
@@ -67,5 +80,6 @@ function buildTransaction(options, callback) {
 
 module.exports = {
   buildTransaction: buildTransaction,
-  getAddressFromWIF: getAddressFromWIF
+  getAddressFromWIF: getAddressFromWIF,
+  generateRandomWIF: generateRandomWIF
 }
