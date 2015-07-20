@@ -4,7 +4,7 @@ A test Common Wallet object for testing software written to the commonWallet spe
 
 ## Inputs
 
-Note common wallet relies on a common blockchain client which can be found <a href="">here</a>
+Note common wallet relies on a common blockchain client which can be found <a href="https://github.com/blockai/abstract-common-blockchain/blob/master/README.md">here</a>
 A common wallet instance can be instantiated as follows:
 
 ```javascript
