@@ -5,16 +5,14 @@ var commonBlockchain = require('blockcypher-unofficial')({
 
 var test = require('tape');
 var testCommonWallet= require('../');
-var commonWalletTests = require('abstract-common-wallet/tests');
+var commonWalletTests = require('../../abstract-common-wallet/tests');
 
-
-var randWIF = bitcoin.WIFKeyFromSeed("test" ,"testnet");
-
+var seed = "test";
 
 var commonWallet = testCommonWallet({
   network: "testnet",
   commonBlockchain: commonBlockchain,
-  wif: randWIF
+  seed: seed
 });
 
 var common = {
@@ -26,4 +24,4 @@ var common = {
   }
 }
 
-commonWalletTests(test, common);
+commonWalletTests(test, seed, common);
