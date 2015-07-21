@@ -18,11 +18,13 @@ function generateRandomWIF(network) {
   return key.toWIF(network).toString();
 }
 
+// a hacky way to generate the private key used by a now deprecated wallet object from bitcoinjs-lib
 function WIFKeyFromSeed(seed, network) {
   network = networkCheck(network);
   var hash = bitcoin.crypto.sha256(seed);
-  var d = bigi.fromBuffer(hash);
-  var key = new bitcoin.ECKey(d);
+  var hdnode = bitcoin.HDNode.fromSeedBuffer(hash, network);
+  var temp = hdnode.deriveHardened(0).derive(0);
+  var key = new bitcoin.ECKey(temp.derive(0).privKey.d);
   var wif = key.toWIF(network);
   return wif;
 }
