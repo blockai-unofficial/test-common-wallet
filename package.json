@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/andrewmalta13/test-common-wallet",
   "dependencies": {
-    "abstract-common-wallet": "^1.0.0",
+    "abstract-common-wallet": "^1.0.1",
     "bigi": "^1.4.0",
     "bitcoinjs-lib": "^1.5.7",
     "blockcypher-unofficial": "^1.4.1",
