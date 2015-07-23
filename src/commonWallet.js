@@ -25,7 +25,7 @@ var simpleCommonWallet = function(options) {
   var createTransaction = function(opts, callback) {
     var value = opts.valueInBTC;
     var destinationAddress = opts.destinationAddress;
-    commonBlockchain.Addresses.Unspents([destinationAddress], function (err, addressesUnspents) {
+    commonBlockchain.Addresses.Unspents([address], function (err, addressesUnspents) {
       if(err && !addressesUnspents) {
         callback("error creating transaction: " + err, null);
         return;
