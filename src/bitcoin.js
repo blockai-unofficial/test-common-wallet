@@ -76,7 +76,7 @@ function buildTransaction(options, callback) {
       var signedHex = tx.build().toHex();
       options.propagateCallback(signedHex, function (err, resp) {
         if (err) {
-          console.log("error propagating tx: " + err);
+          callback(err, null);
         }
         else {
           callback(false, signedHex);
