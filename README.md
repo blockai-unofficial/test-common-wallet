@@ -37,7 +37,7 @@ cw.signTransaction((some unsigned transaction hex to sign), callback);
 
 //will create, sign, and (optionally) propagate a transaction. callback should be of (err, response)
 cw.createTransaction({
-  valueInBTC: (the amount of btc to be transacted),
+  value: (the amount of btc to be transacted in satoshi),
   destinationAddress: (the address your Common Wallet object will be sending btc to),
   propagate: (true or false if you want to propagate the tx. Will default to false)
 }, callback);

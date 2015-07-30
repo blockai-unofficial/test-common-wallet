@@ -33,7 +33,7 @@ function buildTransaction(options, callback) {
   var key = getAddressFromWIF(options.sourceWIF, options.network);  //public key to send the change to
   var unspentOutputs = options.rawUnspentOutputs;
   var tx = new bitcoin.TransactionBuilder();
-  var amountForDestinationInSatoshis = Math.floor(parseFloat(options.amountForDestinationInBTC) * 100000000);
+  var amountForDestinationInSatoshis = options.value;
   var accumulatedValueInSatoshis = 0.0;  //counter to keep track of the balance of the unspents we have looked at.
   var notEnoughBTC = true;  //flag to set false if the unspents exceed the transaction amount + transaction fee.
   var numInputs = 0;        //counter of the number of inputs to the transaction to calculate transaction fee.

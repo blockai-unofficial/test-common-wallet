@@ -23,7 +23,7 @@ var simpleCommonWallet = function(options) {
   };
 
   var createTransaction = function(opts, callback) {
-    var value = opts.valueInBTC;
+    var value = opts.value;
     var destinationAddress = opts.destinationAddress;
     commonBlockchain.Addresses.Unspents([address], function (err, addressesUnspents) {
       if(err && !addressesUnspents) {
@@ -41,7 +41,7 @@ var simpleCommonWallet = function(options) {
       bitcoin.buildTransaction({
         sourceWIF: wif,
         destinationAddress: destinationAddress,
-        amountForDestinationInBTC: value,
+        value: value,
         network: network,
         rawUnspentOutputs: unspentOutputs,
         propagateCallback: (opts.propagate) ? commonBlockchain.Transactions.Propagate : null
