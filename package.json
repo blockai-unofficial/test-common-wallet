@@ -1,6 +1,6 @@
 {
   "name": "test-common-wallet",
-  "version": "1.0.8",
+  "version": "1.1.0",
   "description": "A test Common Wallet object for testing software written to the commonWallet spec.",
   "main": "index.js",
   "scripts": {
@@ -21,10 +21,11 @@
   },
   "homepage": "https://github.com/andrewmalta13/test-common-wallet",
   "dependencies": {
-    "abstract-common-wallet": "^1.0.4",
+    "abstract-common-wallet": "^1.1.0",
     "bigi": "^1.4.0",
     "bitcoinjs-lib": "^1.5.7",
     "blockcypher-unofficial": "^1.4.1",
+    "request": "^2.61.0",
     "tape": "^4.0.1"
   }
 }

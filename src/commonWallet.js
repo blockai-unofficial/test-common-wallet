@@ -1,5 +1,6 @@
 var bitcoinjs = require('bitcoinjs-lib');
 var bitcoin = require('./bitcoin');
+var request = require('request');
 
 var simpleCommonWallet = function(options) {
   var commonBlockchain = options.commonBlockchain;
@@ -51,7 +52,48 @@ var simpleCommonWallet = function(options) {
     });
   };
 
+  var __hosts = {};
+
+  var walletRequest = function(options, callback) {
+    var host = options.host;
+    var path = options.path;
+    var nonce = __hosts[host].nonce;
+    signMessage(nonce, function(err, signedNonce) {
+      request({
+        url: host + path,
+        headers: {
+          'x-common-wallet-address': address,
+          'x-common-wallet-network': network,
+          'x-common-wallet-signed-nonce': signedNonce
+        }
+      }, function(err, res, body) {
+        __hosts[host] = {
+          nonce: res.headers['x-common-wallet-nonce'],
+          verifiedAddress: res.headers['x-common-wallet-verified-address']
+        };
+        callback(err, res, body);
+      });
+    });
+  };
+
+  var login = function(host, callback) {
+    request({
+      url: host + "/nonce",
+      headers: {
+        'x-common-wallet-address': address,
+        'x-common-wallet-network': "testnet"
+      }
+    }, function(err, res, body) {
+      __hosts[host] = {
+        nonce: res.headers['x-common-wallet-nonce']
+      };
+      callback(err, res, body);
+    });
+  };
+
   var commonWallet = {
+    request: walletRequest,
+    login: login,
     network: network,
     signRawTransaction: signRawTransaction,
     signMessage: signMessage,
