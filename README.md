@@ -41,7 +41,21 @@ cw.createTransaction({
   destinationAddress: (the address your Common Wallet object will be sending btc to),
   propagate: (true or false if you want to propagate the tx. Will default to false)
 }, callback);
+
+//will authenticate with host using wallet address as id
+cw.login(host, function(err, res, body) {
+  
+});
+
+//wraps npm request module with wallet authentication with host, use login() first
+cw.request(options, function(err, res, body) {
+
+});
 ```
+
+## Authentication
+
+Use [```express-common-wallet```](https://github.com/blockai/express-common-wallet) middleware with ```login()``` and ```request()``` functions.
 
 ## Other Common Wallet Data
 

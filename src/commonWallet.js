@@ -57,16 +57,17 @@ var simpleCommonWallet = function(options) {
   var walletRequest = function(options, callback) {
     var host = options.host;
     var path = options.path;
+    var url = host + path;
+    options.url = options.url || url;
     var nonce = __hosts[host].nonce;
     signMessage(nonce, function(err, signedNonce) {
-      request({
-        url: host + path,
-        headers: {
-          'x-common-wallet-address': address,
-          'x-common-wallet-network': network,
-          'x-common-wallet-signed-nonce': signedNonce
-        }
-      }, function(err, res, body) {
+      var headers = {
+        'x-common-wallet-address': address,
+        'x-common-wallet-network': network,
+        'x-common-wallet-signed-nonce': signedNonce
+      };
+      options.headers = options.headers ? options.headers.concat(headers) : headers;
+      request(options, function(err, res, body) {
         __hosts[host] = {
           nonce: res.headers['x-common-wallet-nonce'],
           verifiedAddress: res.headers['x-common-wallet-verified-address']
