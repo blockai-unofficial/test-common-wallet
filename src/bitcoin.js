@@ -68,10 +68,13 @@ function buildTransaction(options, callback) {
     callback("not enough in wallet to complete transaction", null);
   }
   else {
-    for (var i = 0; i < numInputs; i++) {
-      tx.sign(i, bitcoin.ECKey.fromWIF(options.sourceWIF));
+
+    if (!options.skipSign) {
+      for (var i = 0; i < numInputs; i++) {
+        tx.sign(i, bitcoin.ECKey.fromWIF(options.sourceWIF));
+      }
     }
-    
+
     if(options.propagateCallback) {
       var signedHex = tx.build().toHex();
       options.propagateCallback(signedHex, function (err, resp) {
@@ -84,7 +87,7 @@ function buildTransaction(options, callback) {
       });
     }
     else {
-      callback(false, tx.build().toHex());
+      callback(false, tx.buildIncomplete().toHex());
     }    
   }
 }

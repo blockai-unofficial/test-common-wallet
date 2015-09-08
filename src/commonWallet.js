@@ -16,16 +16,19 @@ var simpleCommonWallet = function(options) {
   
   //callback (error, tx.to)
   var signRawTransaction = function(txHex, cb) {
-    var index = 0;
+    var input = 0;
     var options;
     if (typeof(txHex) == "object") {
       options = txHex;
-      txHex = options.txHex;
-      index = options.index || 0;
+      _txHex = options.txHex;
+      input = options.input || 0;
     }
-    var tx = bitcoinjs.Transaction.fromHex(txHex);
+    else if (typeof(txHex == "string")) {
+      _txHex = txHex;
+    }
+    var tx = bitcoinjs.Transaction.fromHex(_txHex);
     var key = bitcoinjs.ECKey.fromWIF(wif);
-    tx.sign(index, key);
+    tx.sign(input, key);
     var txid = tx.getId();
     cb(false, tx.toHex(), txid);
   };
@@ -51,6 +54,7 @@ var simpleCommonWallet = function(options) {
         destinationAddress: destinationAddress,
         value: value,
         network: network,
+        skipSign: opts.skipSign,
         rawUnspentOutputs: unspentOutputs,
         propagateCallback: (opts.propagate) ? commonBlockchain.Transactions.Propagate : null
       }, function (err, transaction) {
