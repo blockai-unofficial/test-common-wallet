@@ -16,9 +16,16 @@ var simpleCommonWallet = function(options) {
   
   //callback (error, tx.to)
   var signRawTransaction = function(txHex, cb) {
+    var index = 0;
+    var options;
+    if (typeof(txHex) == "object") {
+      options = txHex;
+      txHex = options.txHex;
+      index = options.index || 0;
+    }
     var tx = bitcoinjs.Transaction.fromHex(txHex);
     var key = bitcoinjs.ECKey.fromWIF(wif);
-    tx.sign(0, key);
+    tx.sign(index, key);
     var txid = tx.getId();
     cb(false, tx.toHex(), txid);
   };
