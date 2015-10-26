@@ -26,11 +26,13 @@ var simpleCommonWallet = function (options) {
     } else if (typeof (txHex === 'string')) {
       _txHex = txHex
     }
-    var tx = bitcoinjs.Transaction.fromHex(_txHex)
+    var _tx = bitcoinjs.Transaction.fromHex(_txHex)
+    var tx = bitcoinjs.TransactionBuilder.fromTransaction(_tx)
     var key = bitcoinjs.ECKey.fromWIF(wif)
     tx.sign(input, key)
-    var txid = tx.getId()
-    cb(false, tx.toHex(), txid)
+    var builtTx = tx.build()
+    var txid = builtTx.getId()
+    cb(false, builtTx.toHex(), txid)
   }
 
   var createTransaction = function (opts, callback) {
