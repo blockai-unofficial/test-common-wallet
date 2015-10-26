@@ -30,7 +30,7 @@ var simpleCommonWallet = function (options) {
     var tx = bitcoinjs.TransactionBuilder.fromTransaction(_tx)
     var key = bitcoinjs.ECKey.fromWIF(wif)
     tx.sign(input, key)
-    var builtTx = tx.build()
+    var builtTx = tx.buildIncomplete()
     var txid = builtTx.getId()
     cb(false, builtTx.toHex(), txid)
   }
